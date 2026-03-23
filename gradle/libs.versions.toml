@@ -42,6 +42,7 @@ plugin-kotlin-android = { module = "org.jetbrains.kotlin.android:org.jetbrains.k
 plugin-kotlin-compose = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
 plugin-android-library = { module = "com.android.library:com.android.library.gradle.plugin", version.ref = "agp" }
 plugin-kotlin-jvm = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
+javax-inject = { group = "javax.inject", name = "javax.inject", version = "1" }
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp"}
