@@ -1,7 +1,7 @@
-package com.ch000se.messenger.feature.init
+package com.ch000se.messenger.feature.init.domain.resources
 
 import com.ch000se.messenger.core.essentials.resources.StringProvider
 
 interface InitStringProvider : StringProvider {
-    
+    val deviceIsRootedErrorMessage: String
 }

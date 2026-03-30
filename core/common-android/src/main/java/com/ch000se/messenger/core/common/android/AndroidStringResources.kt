@@ -10,6 +10,19 @@ class CoreStringProviderImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : CoreStringProvider {
     override val connectionErrorMessage = context.getString(R.string.connection_error_message)
+    override val authErrorMessage: String
+        get() = TODO("Not yet implemented")
+    override val unknownErrorMessage: String
+        get() = TODO("Not yet implemented")
+    override val invalidBackendResponseErrorMessage: String
+        get() = TODO("Not yet implemented")
+    override val tooManyRequests: String
+        get() = TODO("Not yet implemented")
+    override val deleteAction: String
+        get() = TODO("Not yet implemented")
+    override val cancelAction: String
+        get() = TODO("Not yet implemented")
+
 
     override fun backendErrorMessage(
         code: Int,

@@ -11,6 +11,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -24,9 +27,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Messenger"
 include(":app")
-include(":templates:android-library")
-include(":templates:feature:domain")
-include(":templates:feature:presentation")
 include(":templates:script")
 
 include(":core:essentials")
