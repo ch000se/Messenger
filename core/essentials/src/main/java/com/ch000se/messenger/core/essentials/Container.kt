@@ -5,7 +5,11 @@ import kotlinx.coroutines.flow.map
 
 sealed class Container<out T> {
     data object Loading : Container<Nothing>()
-    data class Success<T>(val data: T) : Container<T>()
+    data class Success<T>(
+        val data: T,
+        val isLoadingInBackground: Boolean = false
+    ) : Container<T>()
+
     data class Error(val exception: Exception) : Container<Nothing>()
 }
 

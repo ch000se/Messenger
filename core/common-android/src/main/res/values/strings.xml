@@ -9,4 +9,6 @@
     <string name="unknown_error_message">
     An unknown error occurred. Please try again later.
     </string>
+    <string name="ok">OK</string>
+    <string name="error">Error\n</string>
 </resources>
