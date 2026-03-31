@@ -27,6 +27,7 @@ interface GetKeyFeatureUseCase {
 @HiltViewModel
 class InitViewModel @Inject constructor(
     private val exceptionHandler: ExceptionHandler,
+    private val router: InitRouter,
     private val showKeyFeatureUseCase: ShowKeyFeatureUseCase,
     private val isAuthorizedUseCase: IsAuthorizedUseCase
 ) : ViewModel() {
@@ -59,7 +60,7 @@ class InitViewModel @Inject constructor(
                 if (isAuthorized) {
 
                 } else {
-
+                    router.launchSignIn()
                 }
             } catch (e: Exception) {
                 hideProgress()

@@ -19,7 +19,7 @@ import com.ch000se.messenger.core.essentials.Container
 import com.ch000se.messenger.core.essentials.exceptions.mapper.ExceptionToMessageMapper
 import com.ch000se.messenger.core.theme.Dimens
 import com.ch000se.messenger.core.theme.MediumVerticalSpace
-import com.ch000se.templates.android_library.R
+import com.ch000se.theme.R
 
 @Composable
 fun <T> ContainerView(

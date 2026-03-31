@@ -1,0 +1,18 @@
+plugins {
+    alias(libs.plugins.custom.kotlin.library)
+    alias(libs.plugins.ksp)
+}
+
+dependencies {
+    implementation(projects.core.essentials)
+    implementation(projects.utils.autobindingAnnotations)
+    ksp(projects.utils.autobindingCompiler)
+
+    implementation(libs.hilt.core)
+    ksp(libs.hilt.compiler)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.flow.test)
+}

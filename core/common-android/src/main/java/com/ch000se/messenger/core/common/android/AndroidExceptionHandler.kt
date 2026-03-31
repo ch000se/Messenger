@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.ch000se.common.android.R
 import com.ch000se.messenger.core.essentials.exceptions.handler.ExceptionHandler
 import com.ch000se.messenger.core.essentials.exceptions.mapper.ExceptionToMessageMapper
-import com.ch000se.templates.android_library.R
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import jakarta.inject.Inject
 

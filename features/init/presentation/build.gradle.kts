@@ -16,6 +16,7 @@ dependencies {
     api(projects.features.init.domain)
     implementation(projects.core.commonAndroid)
     implementation(projects.core.theme)
+    implementation(projects.core.navigationDsl)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

@@ -1,0 +1,86 @@
+.file navigation/build.gradle.kts
+.addTo dependencies
+    implementation(projects.%MODULE_DEPENDENCY%.presentation)
+.end
+
+.file app-demo/build.gradle.kts
+.addTo dependencies
+    implementation(projects.%MODULE_DEPENDENCY%.demo)
+.end
+
+.file glue/build.gradle.kts
+.addTo dependencies
+    implementation(projects.%MODULE_DEPENDENCY%.presentation)
+.end
+
+.file navigation/src/main/java/com/ch000se/messenger/navigation/AppRoutes.kt
+.addTo bottom
+    @Serializable
+    data object %MODULE_NAME%Route : Route
+.end
+
+.file navigation/src/main/java/com/ch000se/messenger/navigation/AppNavGraph.kt
+.addTo imports
+    import %PACKAGE%.presentation.%MODULE_NAME_DECAPITALIZED%Screen
+.end
+.addTo function ExtendedNavGraphBuilder\.buildAppNavGraph
+    composable<%MODULE_NAME%Route> { %MODULE_NAME_DECAPITALIZED%Screen() }
+.end
+
+.file navigation/src/main/java/com/ch000se/messenger/navigation/routers/%MODULE_NAME%RouterImpl.kt
+.addTo bottom
+    package com.ch000se.messenger.navigation.routers
+
+    import %PACKAGE%.presentation.%MODULE_NAME%Router
+    import com.ch000se.messenger.navigation.base.AppRouter
+    import com.ch000se.messenger.utils.autobinding.annotations.AutoBinds
+    import com.ch000se.messenger.utils.autobinding.annotations.HiltComponent
+    import javax.inject.Inject
+
+    @AutoBinds(installIn = HiltComponent.ActivityRetained)
+    class %MODULE_NAME%RouterImpl @Inject constructor(
+        private val appRouter: AppRouter,
+    ): %MODULE_NAME%Router {
+
+        override fun navigateUp() {
+            appRouter.goBack()
+        }
+
+    }
+.end
+
+.file glue/src/main/java/com/ch000se/messenger/glue/%MODULE_NAME_DECAPITALIZED%/%MODULE_NAME%RepositoryImpl.kt
+.addTo bottom
+    package com.ch000se.messenger.glue.%MODULE_NAME_DECAPITALIZED%
+
+    import com.elveum.container.Container
+    import com.elveum.container.subject.LazyFlowSubject
+    import com.elveum.container.subject.listenReloadable
+    import com.elveum.container.subject.updateIfSuccess
+    import %PACKAGE%.domain.repositories.%MODULE_NAME%Repository
+    import com.ch000se.messenger.utils.autobinding.annotations.AutoBinds
+    import kotlinx.coroutines.delay
+    import kotlinx.coroutines.flow.Flow
+    import javax.inject.Inject
+    import javax.inject.Singleton
+
+    @AutoBinds
+    @Singleton
+    internal class %MODULE_NAME%RepositoryImpl @Inject constructor() : %MODULE_NAME%Repository {
+
+        private val subject = LazyFlowSubject.create {
+            delay(1000)
+            emit("%MODULE_NAME% Feature")
+        }
+
+        override fun getFeatureName(): Flow<Container<String>> {
+            return subject.listenReloadable()
+        }
+
+        override suspend fun setFeatureName(newName: String) {
+            delay(1000)
+            subject.updateIfSuccess { newName }
+        }
+
+    }
+.end

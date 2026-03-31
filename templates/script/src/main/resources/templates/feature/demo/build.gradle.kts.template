@@ -1,0 +1,23 @@
+plugins {
+    alias(libs.plugins.custom.android.library)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+}
+
+android {
+    namespace = "%PACKAGE%.demo"
+}
+
+dependencies {
+    implementation(projects.core.essentials)
+    implementation(projects.%MODULE_REFERENCE%.presentation)
+    implementation(projects.utils.autobindingAnnotations)
+    ksp(projects.utils.autobindingCompiler)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+}

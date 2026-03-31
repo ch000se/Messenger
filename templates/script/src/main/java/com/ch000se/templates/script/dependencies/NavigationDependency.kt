@@ -20,9 +20,7 @@ class NavigationDependency : AbstractDependency {
     """.trimMargin()
 
     override val librariesBlock: String = """
-        |    implementation(libs.hilt.navigation)
-        |    implementation(libs.androidx.navigation3.ui)
-        |    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+        |    implementation(libs.hilt.navigation.compose)
+        |    implementation(libs.navigation.compose)
     """.trimMargin()
-
 }

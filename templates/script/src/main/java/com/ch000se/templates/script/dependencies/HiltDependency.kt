@@ -15,14 +15,11 @@ class HiltDependency : AbstractDependency {
     )
 
     override val pluginsBlock: String = """
-        |    alias(libs.plugins.hilt.android)
+        |    alias(libs.plugins.hilt)
     """.trimMargin()
 
     override val librariesBlock: String = """
-        |    implementation(projects.utils.autobindingAnnotations)
-        |    ksp(projects.utils.autobindingCompiler)
         |    implementation(libs.hilt.android)
         |    ksp(libs.hilt.compiler)
     """.trimMargin()
-
 }

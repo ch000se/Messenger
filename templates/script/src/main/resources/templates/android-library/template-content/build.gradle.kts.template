@@ -1,0 +1,19 @@
+plugins {
+    alias(libs.plugins.custom.android.library)
+    %PLUGINS_SECTION%
+}
+
+android {
+    namespace = "%PACKAGE%"
+    resourcePrefix = "%MODULE_NAME_SNAKE%_"
+}
+%CONFIGURATION_SECTION%
+dependencies {
+    %LIBRARIES_SECTION%
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+}

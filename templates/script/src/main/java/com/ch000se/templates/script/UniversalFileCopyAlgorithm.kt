@@ -29,7 +29,12 @@ fun universalCopyFiles(
 
         override fun visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult {
             val relativeFile = file.relativeTo(sourcePath)
-            val targetNewFile = targetPath.resolve(relativeFile.toString())
+            val targetFileName = if (relativeFile.toString().endsWith(".template")) {
+                relativeFile.toString().removeSuffix(".template")
+            } else {
+                relativeFile.toString()
+            }
+            val targetNewFile = targetPath.resolve(targetFileName)
             Files.copy(file, targetNewFile, StandardCopyOption.REPLACE_EXISTING)
             onSuccess(targetNewFile)
             return FileVisitResult.CONTINUE

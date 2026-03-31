@@ -1,8 +1,8 @@
 package com.ch000se.messenger.core.common.android
 
 import android.content.Context
+import com.ch000se.common.android.R
 import com.ch000se.messenger.core.essentials.resources.CoreStringProvider
-import com.ch000se.templates.android_library.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

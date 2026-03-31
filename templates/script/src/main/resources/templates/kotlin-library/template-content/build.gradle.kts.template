@@ -1,0 +1,11 @@
+plugins {
+    alias(libs.plugins.custom.kotlin.library)
+    %PLUGINS_SECTION%
+}
+%CONFIGURATION_SECTION%
+dependencies {
+    %LIBRARIES_SECTION%
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+}

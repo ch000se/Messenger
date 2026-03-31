@@ -19,6 +19,7 @@ dependencies {
 
     implementation(projects.core.commonAndroid)
     implementation(projects.features.init.presentation)
+    implementation(projects.navigation)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

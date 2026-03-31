@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ch000se.templates.android_library"
+    namespace = "com.ch000se.common.android"
     buildFeatures {
         compose = true
     }

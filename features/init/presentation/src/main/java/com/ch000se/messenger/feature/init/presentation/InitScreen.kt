@@ -16,28 +16,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.ch000se.messenger.core.navigation.dsl.ScreenScope
+import com.ch000se.messenger.core.navigation.dsl.ScreenToolbar
 import com.ch000se.messenger.core.theme.Dimens
 import com.ch000se.messenger.core.theme.components.ContainerView
 import com.ch000se.messenger.core.theme.components.ProgressButton
 import com.ch000se.messenger.feature.init.domain.entities.KeyFeature
 import com.ch000se.templates.presentation.R
 
-@Composable
-fun InitScreen(
-    modifier: Modifier = Modifier,
-    viewModel: InitViewModel = hiltViewModel()
-) {
-    val container by viewModel.stateFlow.collectAsState()
-    ContainerView(
-        container = container,
-        onReload = {},
-        modifier = modifier.fillMaxSize()
-    ) { state ->
-        InitContent(
-            state = state,
-            onLetsGoAction = viewModel::letsGo
-        )
+fun ScreenScope.initScreen() {
+    toolBar = ScreenToolbar.Hidden
+    content {
+        val viewModel: InitViewModel = hiltViewModel()
+        val container by viewModel.stateFlow.collectAsState()
+        ContainerView(
+            container = container,
+            onReload = {},
+            modifier = Modifier.fillMaxSize()
+        ) { state ->
+            InitContent(
+                state = state,
+                onLetsGoAction = viewModel::letsGo
+            )
+        }
     }
+
 }
 
 @Composable
