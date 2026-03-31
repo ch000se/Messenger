@@ -1,4 +1,4 @@
-package com.ch000se.messenger.ui.theme
+package com.ch000se.messenger.core.theme.material
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

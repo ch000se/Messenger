@@ -42,7 +42,7 @@ import kotlinx.coroutines.awaitCancellation
 fun AppNavHost(
     modifier: Modifier = Modifier,
     startDestination: Route = InitRoute,
-    navGraphBuilder: ExtendedNavGraphBuilderImpl.() -> Unit,
+    navGraphBuilder: ExtendedNavGraphBuilderImpl.() -> Unit
 ) {
     val navController = rememberNavController()
     val context = LocalContext.current

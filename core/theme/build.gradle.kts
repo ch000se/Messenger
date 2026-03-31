@@ -12,6 +12,8 @@ setupCompose()
 dependencies {
     implementation(projects.core.essentials)
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil.okkhttp)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

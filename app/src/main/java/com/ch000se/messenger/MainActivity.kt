@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.ch000se.messenger.core.common.android.AndroidExceptionHandler
+import com.ch000se.messenger.core.theme.material.MessengerTheme
+import com.ch000se.messenger.navigation.AppNavHost
 import com.ch000se.messenger.ui.theme.MessengerTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
