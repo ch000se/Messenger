@@ -1,5 +1,6 @@
 package com.ch000se.messenger.feature.signin.presentation
 
+import androidx.lifecycle.ViewModel
 import com.ch000se.messenger.core.essentials.Container
 import com.ch000se.messenger.core.presentation.WithMviState
 import com.ch000se.messenger.core.presentation.base.AbstractViewModel
@@ -15,7 +16,7 @@ import java.util.UUID
 class SignInViewModel @Inject constructor(
     getSignInUseCase: GetSignInUseCase,
     private val saveSignInUseCase: SaveSignInUseCase,
-) : AbstractViewModel(),
+) : ViewModel(),
     WithMviState<SignInViewModel.State> {
 
     private val reducer = getSignInUseCase()

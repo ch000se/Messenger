@@ -5,6 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.hilt.lifecycle.viewmodel.HiltViewModelFactory
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.toRoute
 import com.ch000se.messenger.core.navigation.dsl.ConfiguredScreen
@@ -29,9 +32,9 @@ class ExtendedNavStoreImpl(
     }
 
     @Composable
-    override fun <T : Route> Content(route: T, id: String) {
-        val screen = screens.getOrPut(id) {
-            createScreen(route)
+    override fun <T : Route> Content(route: T, navEntry: NavBackStackEntry) {
+        val screen = screens.getOrPut(navEntry.id) {
+            createScreen(route, navEntry)
         }
         screen.ScreenContent()
     }
@@ -49,8 +52,11 @@ class ExtendedNavStoreImpl(
             ?: ConfiguredScreen.Empty
     }
 
-    private fun <T : Route> createScreen(route: T): Screen {
-        val screen = Screen(context)
+    private fun <T : Route> createScreen(
+        route: T,
+        navEntry: NavBackStackEntry
+    ): Screen {
+        val screen = Screen(context, navEntry)
         val configuration = configurations[route::class] as Configuration<T>
         configuration.applyTo(screen, route)
         return screen
@@ -65,7 +71,7 @@ class ExtendedNavStoreImpl(
         }
         val routeClass = Class.forName(className).kotlin
         val route = navEntry.toRoute<Route>(routeClass)
-        return createScreen(route)
+        return createScreen(route, navEntry)
     }
 
     private class Configuration<T : Route>(
@@ -77,8 +83,19 @@ class ExtendedNavStoreImpl(
     }
 
     private class Screen(
-        override val context: Context
+        override val context: Context,
+        private val navEntry: NavBackStackEntry
     ) : ScreenScope {
+        override fun <T : ViewModel> viewModel(vmClass: KClass<T>): T {
+            val factory = HiltViewModelFactory(
+                context,
+                delegateFactory = navEntry.defaultViewModelProviderFactory
+            )
+            val extras = navEntry.defaultViewModelCreationExtras
+            val provider = ViewModelProvider(navEntry.viewModelStore, factory, extras)
+            return provider[vmClass]
+        }
+
         override var toolBar: ScreenToolbar by mutableStateOf(ScreenToolbar.Hidden)
 
         private var content: (@Composable () -> Unit) by mutableStateOf({})

@@ -31,6 +31,7 @@ fun ScreenScope.signInScreen() {
         val container: Container<State> by viewModel.stateFlow.collectAsState()
         ContainerView(
             container = container,
+            onReload = {},
             modifier = Modifier.fillMaxSize(),
         ) { state ->
             SignInContent(

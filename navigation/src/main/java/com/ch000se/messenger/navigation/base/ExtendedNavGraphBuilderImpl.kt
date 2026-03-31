@@ -18,7 +18,7 @@ class ExtendedNavGraphBuilderImpl(
         navStore.registerConfiguration(routeClass, content)
         navGraphBuilder.composable(routeClass) { navEntry ->
             val route = navEntry.toRoute<T>(routeClass)
-            navStore.Content(route, navEntry.id)
+            navStore.Content(route, navEntry)
         }
     }
 }
