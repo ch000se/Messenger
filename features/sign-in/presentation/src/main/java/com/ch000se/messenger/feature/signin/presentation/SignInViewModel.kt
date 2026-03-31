@@ -2,35 +2,27 @@ package com.ch000se.messenger.feature.signin.presentation
 
 import androidx.lifecycle.ViewModel
 import com.ch000se.messenger.core.essentials.Container
-import com.ch000se.messenger.core.presentation.WithMviState
-import com.ch000se.messenger.core.presentation.base.AbstractViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 import com.ch000se.messenger.feature.signin.domain.GetSignInUseCase
 import com.ch000se.messenger.feature.signin.domain.SaveSignInUseCase
-import kotlinx.coroutines.delay
-import java.util.UUID
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     getSignInUseCase: GetSignInUseCase,
     private val saveSignInUseCase: SaveSignInUseCase,
-) : ViewModel(),
-    WithMviState<SignInViewModel.State> {
+) : ViewModel() {
 
-    private val reducer = getSignInUseCase()
-        .containerToReducer(::State, State::copy)
-    val stateFlow: StateFlow<Container<State>> = reducer.stateFlow
+    private val _stateFlow = MutableStateFlow<Container<State>>(
+        Container.Success(State(title = "Sign In"))
+    )
+    val stateFlow: StateFlow<Container<State>> = _stateFlow
 
-    fun increment() = launch {
-        // example of updating data in domain:
-        saveSignInUseCase("Random Title: ${UUID.randomUUID().toString()}")
-        // example of local state update:
-        delay(1000)
-        reducer.updateState { oldState ->
-            oldState.copy(counter = oldState.counter + 1)
-        }
+    fun increment() {
+        val currentState = (_stateFlow.value as? Container.Success)?.data ?: return
+        _stateFlow.value = Container.Success(currentState.copy(counter = currentState.counter + 1))
     }
 
     data class State(

@@ -15,6 +15,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.ch000se.messenger.core.navigation.dsl.ContextMenuItem
 import com.ch000se.messenger.core.navigation.dsl.ScreenToolbar
@@ -62,7 +64,7 @@ fun AppTopBar(
                     onClick = onBackPressed
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back"
                     )
                 }

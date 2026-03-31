@@ -14,6 +14,9 @@ import com.ch000se.messenger.core.navigation.dsl.ConfiguredScreen
 import com.ch000se.messenger.core.navigation.dsl.ScreenScope
 import com.ch000se.messenger.core.navigation.dsl.ScreenToolbar
 import com.ch000se.messenger.navigation.Route
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlin.reflect.KClass
 
 class ExtendedNavStoreImpl(
@@ -86,6 +89,8 @@ class ExtendedNavStoreImpl(
         override val context: Context,
         private val navEntry: NavBackStackEntry
     ) : ScreenScope {
+        override val coroutineScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
         override fun <T : ViewModel> viewModel(vmClass: KClass<T>): T {
             val factory = HiltViewModelFactory(
                 context,

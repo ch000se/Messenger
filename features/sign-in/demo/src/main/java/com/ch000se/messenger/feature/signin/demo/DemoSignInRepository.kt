@@ -1,7 +1,6 @@
 package com.ch000se.messenger.feature.signin.demo
 
 import com.ch000se.messenger.feature.signin.domain.repositories.SignInRepository
-import com.ch000se.messenger.utils.autobinding.annotations.AutoBinds
 import com.elveum.container.Container
 import com.elveum.container.subject.LazyFlowSubject
 import com.elveum.container.subject.listenReloadable
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@AutoBinds
 @Singleton
 class DemoSignInRepository @Inject constructor() : SignInRepository {
 

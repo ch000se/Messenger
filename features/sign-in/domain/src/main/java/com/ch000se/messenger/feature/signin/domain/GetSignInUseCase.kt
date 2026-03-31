@@ -1,6 +1,7 @@
 package com.ch000se.messenger.feature.signin.domain
 
-import com.elveum.container.Container
+
+import com.ch000se.messenger.core.essentials.Container
 import kotlinx.coroutines.flow.Flow
 
 interface GetSignInUseCase {
