@@ -1,6 +1,6 @@
 package %PACKAGE%.presentation
 
-import com.elveum.container.Container
+import com.ch000se.messenger.core.essentials.Container
 import com.ch000se.messenger.core.presentation.WithMviState
 import com.ch000se.messenger.core.presentation.base.AbstractViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,9 @@ class %MODULE_NAME%ViewModel @Inject constructor(
     WithMviState<%MODULE_NAME%ViewModel.State> {
 
     private val reducer = get%MODULE_NAME%UseCase()
-        .containerToReducer(::State, State::copy)
+        .containerToReducer(
+            initialState = { title, isProgress -> State(title, isProgress) }
+        )
     val stateFlow: StateFlow<Container<State>> = reducer.stateFlow
 
     fun increment() = launch {
@@ -34,7 +36,7 @@ class %MODULE_NAME%ViewModel @Inject constructor(
 
     data class State(
         val title: String,
-        val actionInProgress: Boolean = false,
+        val isActionInProgress: Boolean = false,
         val counter: Int = 0,
     )
 
