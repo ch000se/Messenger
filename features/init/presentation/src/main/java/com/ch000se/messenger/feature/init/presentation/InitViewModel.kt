@@ -8,8 +8,10 @@ import com.ch000se.messenger.core.essentials.map
 import com.ch000se.messenger.feature.init.domain.IsAuthorizedUseCase
 import com.ch000se.messenger.feature.init.domain.ShowKeyFeatureUseCase
 import com.ch000se.messenger.feature.init.domain.entities.KeyFeature
+import com.ch000se.messenger.feature.init.domain.entities.ShowKeyFeatureResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,9 +35,17 @@ class InitViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val vmStateFlow = MutableStateFlow(ViewModelState())
+    private val keyFeatureFlow: Flow<Container<KeyFeature>> = flow {
+        showKeyFeatureUseCase().collect { result ->
+            when (result) {
+                is ShowKeyFeatureResult.Show -> emit(Container.Success(result.keyFeature))
+                ShowKeyFeatureResult.Skip -> authorize()
+            }
+        }
+    }
 
     val stateFlow: StateFlow<Container<State>> = combine(
-        showKeyFeatureUseCase.invoke(),
+        keyFeatureFlow,
         vmStateFlow
     ) { keyFeatureContainer, vmState ->
         keyFeatureContainer.map { keyFeature ->
@@ -56,17 +66,21 @@ class InitViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 showProgress()
-                val isAuthorized = isAuthorizedUseCase.invoke()
-                if (isAuthorized) {
-
-                } else {
-                    router.launchSignIn()
-                }
+                authorize()
             } catch (e: Exception) {
                 hideProgress()
                 ensureActive()
                 exceptionHandler.handleException(e)
             }
+        }
+    }
+
+    private suspend fun authorize() {
+        val isAuthorized = isAuthorizedUseCase()
+        if (isAuthorized) {
+
+        } else {
+            router.launchSignIn()
         }
     }
 

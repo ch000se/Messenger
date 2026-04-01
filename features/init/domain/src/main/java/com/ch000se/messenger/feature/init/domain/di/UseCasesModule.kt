@@ -1,4 +1,4 @@
-package com.ch000se.messenger.feature.init.presentation.di
+package com.ch000se.messenger.feature.init.domain.di
 
 import com.ch000se.messenger.feature.init.domain.IsAuthorizedUseCase
 import com.ch000se.messenger.feature.init.domain.ShowKeyFeatureUseCase
@@ -7,15 +7,19 @@ import com.ch000se.messenger.feature.init.domain.usecases.ShowKeyFeatureUseCaseI
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-interface InitUseCaseModule {
+@InstallIn(SingletonComponent::class)
+internal interface UseCasesModule {
 
     @Binds
-    fun bindShowKeyFeatureUseCase(impl: ShowKeyFeatureUseCaseImpl): ShowKeyFeatureUseCase
+    fun bindIsAuthorizedUseCase(
+        impl: IsAuthorizedUseCaseImpl
+    ): IsAuthorizedUseCase
 
     @Binds
-    fun bindIsAuthorizedUseCase(impl: IsAuthorizedUseCaseImpl): IsAuthorizedUseCase
+    fun bindShowKeyFeatureUseCase(
+        impl: ShowKeyFeatureUseCaseImpl
+    ): ShowKeyFeatureUseCase
 }

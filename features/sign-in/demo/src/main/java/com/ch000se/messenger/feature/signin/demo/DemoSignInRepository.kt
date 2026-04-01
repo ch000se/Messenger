@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class DemoSignInRepository @Inject constructor() : SignInRepository {
 
-    private val subject = LazyFlowSubject.create {
+    private val subje       ct = LazyFlowSubject.create {
         delay(1000)
         emit("SignIn Feature")
     }
